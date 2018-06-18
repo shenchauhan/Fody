@@ -1,6 +1,6 @@
 # Fody- INotifyPropertyChanged the easy way
 
-INotifyPropertyChanged is chizelled into every XAML developers brain. It provides amazing data binding power, but it has one drawback for me - code bloat. Take for example the code below, it's a class with 3 properties: LastName, FirstName and Age. It's a pretty simple class but there is a lot of framework code detracting away from the simplicity.
+INotifyPropertyChanged is chiseled into every XAML developers brain. It provides amazing data binding power, but it has one drawback for me - code bloat. Take for example the code below, it's a class with 3 properties: LastName, FirstName and Age. It's a pretty simple class but there is a lot of framework code detracting away from the simplicity.
 
 ```csharp
     public class PersonWithoutFody : INotifyPropertyChanged
@@ -50,7 +50,7 @@ INotifyPropertyChanged is chizelled into every XAML developers brain. It provide
     }
 ```
 
-What I would love is a simplier version which keeps my code true to what it was originally. That is where Fody comes in. The same code with Fody looks like this:
+What I would love is a simpler version which keeps my code true to what it was originally. That is where Fody comes in. The same code with Fody looks like this:
 
 ```csharp
     public class PersonWithFody : INotifyPropertyChanged
@@ -64,7 +64,7 @@ What I would love is a simplier version which keeps my code true to what it was 
         public string LastName { get; set; }
     }
 ```
-The lines of code reduces dramatically and is clean from framework code! Under the hood Fody weaves the eqivalence of what you see in the original file at compile time. This means you don't get runtime performance issues.
+The lines of code reduces dramatically and is clean from framework code! Under the hood Fody weaves the equivalence of what you see in the original file at compile time.
 
 ## Setting up Fody
 
@@ -103,7 +103,7 @@ You can even subscribe globally for a PropertyChange on a class by specifying a 
 
 ![Global property changed](Assets/propertychanged.png "Global PropertyChanged")  
 
-in some cases you may not want a property to notify, in which case you can opt-out by specifying an attribute:
+in some cases, you may not want a property to notify, in which case you can opt-out by specifying an attribute:
 ```csharp
     [DoNotNotify]
     public string FirstName { get; set; }
