@@ -19,5 +19,10 @@ namespace FodySample
                 Age = 22;
             }
         }
+
+        private void OnPropertyChanged(string propertyName, object before, object after)
+        {
+
+        }
     }
 }

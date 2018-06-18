@@ -72,6 +72,7 @@ Let's talk about how to set this up. There are 3 simple steps.
 
 ### 1.Nuget
 The first step is to add the nuget package.
+
 ![Nuget Fody PropertyChanged](Assets/nuget.png "Fody.PropertyChanged")  
 
 ### 2.FodyWeavers.xml
@@ -105,6 +106,13 @@ You can even subscribe globally for a PropertyChange on a class by specifying a 
 in some cases you may not want a property to notify, in which case you can opt-out by specifying an attribute:
 ```csharp
     [DoNotNotify]
+    public string FirstName { get; set; }
+```
+
+Finally, sometimes you want one property to notify another property. For that you can use the attribute AlsoNotifyFor and then pass in the property name you want to notify like so:
+
+```csharp
+    [AlsoNotifyFor("LastName")]
     public string FirstName { get; set; }
 ```
 
