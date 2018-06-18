@@ -1,6 +1,6 @@
-# INotifyPropertyChanged the easy way
+# Fody- INotifyPropertyChanged the easy way
 
-Today I want to focus on developer productivity. One of my favourite developer libraries for XAML is Fody. What is Fody you ask? Well, to put quite simply, it's a code weaver for INotifyPropertyChanged. Anyone who has had to write a XAML based application with data binding is familiar writing code that starts like this:
+INotifyPropertyChanged is chizelled into every XAML developers brain. It provides amazing data binding power, but it has one drawback for me - code bloat. Take for example the code below, it's a class with 3 properties: LastName, FirstName and Age. It's a pretty simple class but there is a lot of framework code detracting away from the simplicity.
 
 ```csharp
     public class PersonWithoutFody : INotifyPropertyChanged
@@ -50,7 +50,7 @@ Today I want to focus on developer productivity. One of my favourite developer l
     }
 ```
 
-There is a lot of code here that is framework code. What I would love is a simplier version which keeps my code true to what it was originally. That is where Fody comes in. The same code with Fody looks like this:
+What I would love is a simplier version which keeps my code true to what it was originally. That is where Fody comes in. The same code with Fody looks like this:
 
 ```csharp
     public class PersonWithFody : INotifyPropertyChanged
@@ -64,15 +64,18 @@ There is a lot of code here that is framework code. What I would love is a simpl
         public string LastName { get; set; }
     }
 ```
+The lines of code reduces dramatically and is clean from framework code! Under the hood Fody weaves the eqivalence of what you see in the original file at compile time. This means you don't get runtime performance issues.
 
-The actual lines of code in the whole file reduces from 53 to 15! What is really great is that my code is clean from framework code.
+## Setting up Fody
 
-Under the hood Fody weaves the eqivalence of what you see in the original file at compile time. This means you don't get  runtime performance issues.
+Let's talk about how to set this up. There are 3 simple steps.
 
-Let's talk about how to set this up. First step is to add the nuget.
+### 1.Nuget
+The first step is to add the nuget package.
 ![Nuget Fody PropertyChanged](Assets/nuget.png "Fody.PropertyChanged")  
 
-Next up, you need to add a FodyWeavers.xml file to your project. This helps link the code weaving to the compiler.
+### 2.FodyWeavers.xml
+Next up, you'll need to create a FodyWeavers.xml file and add it to your project. This helps link the code weaving to the compiler.
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -80,6 +83,8 @@ Next up, you need to add a FodyWeavers.xml file to your project. This helps link
   <PropertyChanged/>
 </Weavers>
 ```
+
+### 3.Add INotifyPropertyChanged
 Finally, I just need to make my sure my classes implement INotifyPropertyChanged like so:
 
 ```csharp 
@@ -88,36 +93,23 @@ public class PersonWithFody : INotifyPropertyChanged
 
 And that's it!
 
-Some of you will want to execute some logic when the setter on the property is called. Fody has a neat way for you to intercept that, you simply use a particular naming convention. For instance, if I wanted to intercept the setter on FirstName property I would write a method like so:
-
-```csharp
-    private void OnLastNameChanged()
-    {
-        if (LastName == "Chauhan")
-        {
-            Age = 22;
-        }
-    }
-```
+## Some additional goodies!
+Some of you will want to execute logic when the setter on the property is called. Fody has a neat way for you to intercept setter calls based on a naming convention. For instance, if I wanted to intercept the setter on LastName property I would write a method like so:
 
 ![OnLastNameChanged](Assets/lastName.png "OnLastNameChanged")  
 
-You can even subscribe for a PropertyChange globally on a class by specifying a method like:
+You can even subscribe globally for a PropertyChange on a class by specifying a method like:
 
-```csharp
-    private void OnPropertyChanged(string propertyName, object before, object after)
-    {
-
-    }
-```
 ![Global property changed](Assets/propertychanged.png "Global PropertyChanged")  
 
-and sometimes you just don't want the class to use Fody, in which case you can opt-out by specifying an attribute on the class:
+in some cases you may not want a property to notify, in which case you can opt-out by specifying an attribute:
 ```csharp
     [DoNotNotify]
-    public class PersonWithoutFody : INotifyPropertyChanged
+    public string FirstName { get; set; }
 ```
 
-There are a load of different options that Fody provides you, PropertyChanged is the one I used most so I wanted to share it with you all.
+I hope Fody helps you become more productive. To learn more checkout https://github.com/Fody/PropertyChanged
+
+I've created a sample for you try out: http://www.github.com/shenchauhan/Fody
 
 Happy coding!!
