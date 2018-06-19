@@ -95,7 +95,7 @@ public class PersonWithFody : INotifyPropertyChanged
 And that's it!
 
 ## Some additional goodies!
-Some of you will want to execute logic when the setter on the property is called. Fody has a neat way for you to intercept setter calls based on a naming convention. For instance, if I wanted to intercept the setter on LastName property I would write a method like so:
+Some of you will want to execute logic when the setter on the property is called. Fody has a neat way for you to intercept setter calls based on a naming convention. For instance, if I wanted to intercept the setter on the LastName property I would write a method like so:
 
 ![OnLastNameChanged](Assets/lastName.png "OnLastNameChanged")  
 
