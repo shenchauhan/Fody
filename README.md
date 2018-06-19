@@ -1,6 +1,6 @@
 # Fody- INotifyPropertyChanged the easy way
 
-INotifyPropertyChanged is chiseled into every XAML developers brain. It provides amazing data binding power, but it has one drawback for me - code bloat. Take for example the code below, it's a class with 3 properties: LastName, FirstName and Age. It's a pretty simple class but there is a lot of framework code detracting away from the simplicity.
+INotifyPropertyChanged is chiseled into the brain of every XAML developer. It provides amazing data binding power, but it has one drawback for me - code bloat. Take for example the code below, it's a class with 3 properties: LastName, FirstName and Age. It's a pretty simple class but there is a lot of framework code detracting away from the simplicity.
 
 ```csharp
     public class PersonWithoutFody : INotifyPropertyChanged
@@ -109,7 +109,7 @@ in some cases, you may not want a property to notify, in which case you can opt-
     public string FirstName { get; set; }
 ```
 
-Finally, sometimes you want one property to notify another property. For that you can use the attribute AlsoNotifyFor and then pass in the property name you want to notify like so:
+Lastly, if you want one property to notify another property, you can use the attribute AlsoNotifyFor and then pass in the property name you want to notify like so:
 
 ```csharp
     [AlsoNotifyFor("LastName")]
